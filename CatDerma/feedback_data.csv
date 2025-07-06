@@ -1,0 +1,6 @@
+timestamp,image_path,predicted_class,probability,confirmed_conditions,doctor_notes
+2025-06-13 09:52:28,"static/uploadsingworm-signs-s_1884604264.jpg",Ringworm,88.3,"Flea_Allergy,Ringworm",good
+2025-06-13 09:52:53,"static/uploadsingworm-signs-s_1884604264.jpg",Ringworm,88.3,"Flea_Allergy,Ringworm",good
+2025-06-13 11:47:32,"static/uploadsingworm-signs-s_1884604264.jpg",Ringworm,88.3,"Flea_Allergy,Health",
+2025-06-13 11:47:46,"static/uploadsingworm-signs-s_1884604264.jpg",Ringworm,88.3,Scabies,
+2025-06-13 13:39:31,static/uploads	humb_33.jpg,Flea_Allergy,78.8,"Flea_Allergy,Scabies",Recommend best doc

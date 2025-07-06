@@ -1,0 +1,10 @@
+timestamp,image_path,predicted_class,probability,user_feedback
+2025-06-13 08:34:10,static/uploadsinpu1.jpg,Dermatitis,95.3,correct
+2025-06-13 08:34:12,static/uploadsinpu1.jpg,Dermatitis,95.3,incorrect
+2025-06-13 08:34:14,static/uploadsinpu1.jpg,Dermatitis,95.3,unsure
+2025-06-13 08:49:14,static/uploadsinput3.jpg,Dermatitis,48.6,"Dermatitis,Hypersensitivity",
+2025-06-13 12:21:11,static/uploadsinpu1.jpg,Dermatitis,95.3,"Fungal_infections,Healthy",hi
+2025-06-13 13:41:53,static/uploadsRingworm_large.webp,Dermatitis,40.8,,
+2025-06-13 14:12:20,static/uploads\input3.jpg,Dermatitis,48.6,"Dermatitis,demodicosis",fr,Hel,34
+2025-06-13 14:13:40,static/uploads\input3.jpg,Dermatitis,48.6,Dermatitis,e,Hel,2
+2025-06-13 14:15:18,static/uploads\input3.jpg,Dermatitis,48.6,"Dermatitis,Hypersensitivity",,Hel,6

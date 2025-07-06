@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CatDerma - About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;            background: linear-gradient(135deg, #f0f7f0 0%, #e0f0e0 100%);
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;            background: linear-gradient(135deg, #8cc084 0%, #3d8c30 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-tagline {
+            font-size: 0.8rem;
+            color: #777777;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #333333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;            background: linear-gradient(135deg, #8cc084 0%, #3d8c30 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }        .nav-links a:hover {
+            color: #3d8c30;
+            opacity: 1;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 150px auto 50px;
+            padding: 40px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #8cc084 0%, #3d8c30 100%);
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #444;
+            margin: 30px 0 20px;
+        }        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #4a6e48;
+        }
+
+        .feature-list {
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;            background: linear-gradient(135deg, #f1f7f1 0%, #e5f0e5 100%);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: #3d8c30;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .feature-text p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .about-section {
+            margin-bottom: 40px;
+        }
+
+        .team-section {
+            margin: 50px 0;
+        }
+
+        .contact-info {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        
+        .footer {
+            background: #f1f7f1;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #3d8c30;
+        }        .footer-column p {
+            color: #4a6e48;
+            line-height: 1.6;
+        }        .footer-link {
+            display: block;
+            color: #4a6e48;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }.footer-link:hover {
+            color: #3d8c30;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;            border-top: 1px solid #c2e0b6;
+            margin-top: 30px;
+            color: #5a9d53;
+            font-size: 0.9rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="nav-content">
+            <div class="logo-container">
+                <div class="logo">CatDerma</div>
+                <div class="logo-tagline">Cat Skin Disease Detection</div>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/index">Analyze</a>
+                <a href="/about">About</a>
+                <a href="http://127.0.0.1:5000/" style="background: linear-gradient(135deg, #2e7d32 0%, #4CAF50 100%); color: white; padding: 8px 16px; border-radius: 20px; margin-left: 10px;">Back to PetDerma</a>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <h1>About CatDerma</h1>
+        
+        <div class="about-section">
+            <p>CatDerma is an AI-powered tool designed to help cat owners and veterinarians identify potential skin diseases in cats. Using advanced deep learning algorithms, CatDerma can analyze images of cat skin and provide insights about possible conditions, helping to catch issues early and guide treatment decisions.</p>
+            
+            <p>Our mission is to improve feline health by making skin disease detection more accessible and providing educational resources about common skin conditions that affect cats.</p>
+        </div>
+
+        <h2>How It Works</h2>
+        
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="feature-text">
+                    <h3>Upload an Image</h3>
+                    <p>Take a clear, well-lit photo of your cat's skin condition and upload it to our secure platform.</p>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="feature-text">
+                    <h3>AI Analysis</h3>
+                    <p>Our machine learning model, trained on thousands of cat skin images, analyzes the photo to identify patterns associated with common skin conditions.</p>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="feature-text">
+                    <h3>Get Insights</h3>
+                    <p>Receive detailed information about potential conditions, including descriptions and general treatment approaches.</p>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="feature-text">
+                    <h3>Veterinary Consultation</h3>
+                    <p>Use these insights as a starting point for discussions with your veterinarian, who can provide proper diagnosis and treatment.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Technology</h2>
+            <p>CatDerma uses a state-of-the-art ResNet50 deep learning model that has been specifically trained on a diverse dataset of cat skin conditions. The model can identify the following conditions:</p>
+            <ul style="margin-left: 25px; margin-bottom: 20px;">
+                <li><strong>Flea Allergy Dermatitis</strong> - An allergic reaction to flea saliva</li>
+                <li><strong>Ringworm</strong> - A common fungal infection</li>
+                <li><strong>Scabies</strong> - A skin condition caused by mites</li>
+                <li><strong>Healthy Skin</strong> - Normal, disease-free skin</li>
+            </ul>
+            <p>While our AI model is highly accurate, it's important to remember that it should be used as a screening tool rather than a replacement for professional veterinary care.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Important Disclaimer</h2>
+            <p>CatDerma is designed to be an educational and screening tool only. The information provided by this application should not be considered medical advice and is not intended to replace consultation with a qualified veterinarian.</p>
+            
+            <p>Always consult with a veterinarian for proper diagnosis and treatment of any health issues affecting your cat. Early intervention is key to managing many skin conditions effectively.</p>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <p>For questions, feedback, or support related to the CatDerma application, please contact us at:</p>
+            <p><strong>Email:</strong> support@catderma.com</p>
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>CatDerma</h3>
+                <p>An AI-powered cat skin disease detection tool that helps pet owners identify potential skin issues early and seek appropriate veterinary care.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="/" class="footer-link">Home</a>
+                <a href="/index" class="footer-link">Analyze</a>
+                <a href="/about" class="footer-link">About</a>
+            </div>
+            <div class="footer-column">
+                <h3>Important Note</h3>
+                <p>This tool is for educational purposes only and not a substitute for proper veterinary care. Always consult with a veterinarian for proper diagnosis and treatment.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 CatDerma. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

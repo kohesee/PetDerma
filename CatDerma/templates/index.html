@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CatDerma - Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f7f0 0%, #e0f0e0 100%);
+            min-height: 100vh;
+            color: #333333;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            margin-top: 100px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 4px;            background: #8cc084;
+            border-radius: 2px;
+        }
+
+        .upload-form {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .upload-form input[type="file"] {
+            width: 100%;
+            padding: 30px;            border: 2px dashed #8cc084;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .upload-form input[type="file"]:hover {            background-color: #efffed;
+            border-color: #3d8c30;
+        }
+
+        .upload-form input[type="submit"] {
+            padding: 16px 48px;            background: linear-gradient(135deg, #8cc084 0%, #3d8c30 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(61, 140, 48, 0.2);
+            min-width: 250px;
+        }        .upload-form input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(61, 140, 48, 0.3);
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }        .result h2 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8cc084;
+        }
+
+        .result p {
+            font-size: 1.2rem;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .prediction-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .image-preview {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .image-preview h2 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #909090;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-hint {
+            display: block;
+            font-size: 0.9rem;            color: #5a9d53;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-weight: 500;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fdf2f2;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .columns {
+            display: flex;
+            gap: 30px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .accordion {
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            background-color: #f8fafc;
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .accordion-header:hover {
+            background-color: #edf2f7;
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content p {
+            padding: 15px 0;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        .chart-container {
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            width: 100%;
+        }
+
+        .chart-container h3 {
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            color: #333;
+            text-align: left;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+        }
+
+        .feedback-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .disease-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background-color: #e0e0e0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            accent-color: #5a5a5a;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 24px;
+            vertical-align: middle;
+        }
+
+        .notes-area {
+            margin: 20px 0;
+        }
+
+        .notes-area label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .notes-area textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .generate-report-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #909090 0%, #5a5a5a 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(90, 90, 90, 0.2);
+        }
+
+        .generate-report-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(90, 90, 90, 0.3);
+        }
+
+        .disclaimer {
+            margin-top: 50px;
+            padding: 15px;
+            background-color: #fff4e5;
+            border-left: 4px solid #ff9800;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #909090 0%, #5a5a5a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-tagline {
+            font-size: 0.8rem;            color: #5a9d53;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #333333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(135deg, #909090 0%, #5a5a5a 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5a5a5a;
+            opacity: 1;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        #report-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .report-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #909090;
+        }
+
+        .report-section {
+            margin-bottom: 20px;
+        }
+
+        .report-section h3 {
+            color: #5a5a5a;
+            margin-bottom: 10px;
+        }
+        
+        .report-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .close-report-btn, .print-report-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .close-report-btn {
+            background-color: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .print-report-btn {
+            background-color: #5a5a5a;
+            color: white;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h1::after {
+                width: 300px;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            
+            .upload-form input[type="submit"] {
+                width: 100%;
+            }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #333333;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 18px;
+            margin-top: 0;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 4px;
+            background: #8cc084;
+            border-radius: 2px;
+            margin: 12px 0 0 0;
+        }
+        .analysis-results {
+            padding: 30px 0 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo-container">
+                <div class="logo">CatDerma</div>
+                <div class="logo-tagline">Intelligent Cat Skin Analysis</div>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/index">Analyze</a>
+                <a href="/about">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+            <a href="http://127.0.0.1:5000/" style="background: linear-gradient(135deg, #2e7d32 0%, #4CAF50 100%); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Back to PetDerma</a>
+        </div>
+        <h1>Cat Skin Disease Analysis</h1>
+
+        <form class="upload-form" action="/index" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*">
+            <span class="upload-hint">For best results, upload a clear, well-lit image of the affected area</span>
+            <br>
+            <input type="submit" value="Analyze Image">
+        </form>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if image_url %}
+        <div class="side-by-side-row" style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; margin-bottom: 40px;">
+            <div class="image-preview" style="flex: 1;">
+                <h1 class="section-title">Uploaded Image:</h1>
+                <img src="{{ image_url }}" alt="Uploaded cat skin image">
+            </div>
+            <div class="analysis-results" style="flex: 1;">
+                <h2 class="section-title">Analysis Results:</h2>
+                <div class="prediction-box">
+                    <h3 style="font-size: 1.8rem; color: #333333;">{{ prediction }}</h3>
+                    <p>Confidence: <strong>{{ confidence }}%</strong></p>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-item active">
+                        <div class="accordion-header">Description:</div>
+                        <div class="accordion-content" style="max-height: 500px;">
+                            <p>{{ description }}</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item active">
+                        <div class="accordion-header">Treatment:</div>
+                        <div class="accordion-content" style="max-height: 500px;">
+                            <p>{{ treatment }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-by-side-row" style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; margin-bottom: 40px;">
+            <div class="chart-container" style="flex: 1;">
+                <h2 class="section-title">Probability Distribution</h2>
+                <img src="data:image/png;base64,{{ chart_img }}" alt="Probability Chart">
+            </div>
+            <div class="feedback-section" style="flex: 1;">
+                <h2 class="section-title">Veterinarian's Diagnosis</h2>
+                <div class="diagnosis-field">
+                    <label for="doctor-name">Doctor's Name <span style="color:red;">*</span></label>
+                    <input type="text" id="doctor-name" name="doctor_name" required placeholder="Enter doctor's name">
+                </div>
+                <div class="diagnosis-field">
+                    <label for="cat-age">Cat Age <span style="color:red;">*</span></label>
+                    <input type="number" id="cat-age" name="cat_age" min="0" required placeholder="Enter cat's age in years">
+                </div>
+                <p>Select all conditions that were clinically confirmed:</p>
+                <div class="disease-checkboxes">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="flea-allergy" name="conditions" value="Flea_Allergy">
+                        <label for="flea-allergy">Flea Allergy</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="healthy" name="conditions" value="Health">
+                        <label for="healthy">Healthy</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="ringworm" name="conditions" value="Ringworm">
+                        <label for="ringworm">Ringworm</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="scabies" name="conditions" value="Scabies">
+                        <label for="scabies">Scabies</label>
+                    </div>
+                </div>
+                <div class="notes-area">
+                    <label for="doctor-notes">Additional notes:</label>
+                    <textarea id="doctor-notes" name="doctor_notes" rows="3" placeholder="Enter veterinarian's notes here..."></textarea>
+                </div>
+                <button type="button" class="generate-report-btn" style="background: #3d8c30;" onclick="openReportModal()">Generate Report</button>
+            </div>
+        </div>
+        <div class="disclaimer" style="margin-top: 30px; text-align: center;">
+            <strong>⚠️ Disclaimer:</strong> This tool is for educational purposes only and not a substitute for proper veterinary care. Always consult with a veterinarian for proper diagnosis and treatment.
+        </div>
+        <div id="report-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1001; justify-content:center; align-items:center;">
+            <div class="report-content" style="background:white; padding:30px; border-radius:10px; max-width:600px; width:90%; max-height:90vh; overflow-y:auto; box-shadow:0 5px 15px rgba(0,0,0,0.3);">
+                <div class="report-header" style="text-align:center; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #8cc084;">
+                    <h2>Cat Skin Condition Report</h2>
+                    <p>Generated on <span id="report-date"></span></p>
+                </div>
+                <div class="report-section">
+                    <h3>Patient Information</h3>
+                    <p>Image ID: <span id="report-image-id"></span></p>
+                    <p>Doctor's Name: <span id="report-doctor-name"></span></p>
+                    <p>Cat Age: <span id="report-cat-age"></span></p>
+                </div>
+                <div class="report-section">
+                    <h3>AI Analysis</h3>
+                    <p>Predicted Condition: <strong>{{ prediction }}</strong></p>
+                    <p>Confidence: {{ confidence }}%</p>
+                </div>
+                <div class="report-section">
+                    <h3>Veterinarian's Diagnosis</h3>
+                    <p>Confirmed Condition(s): <span id="report-vet-diagnosis"></span></p>
+                    <div id="report-vet-notes"></div>
+                </div>
+                <div class="report-actions" style="text-align:center; margin-top:20px;">
+                    <button class="close-report-btn" onclick="closeReportModal()">Close</button>
+                    <button class="print-report-btn" onclick="printReport()">Print Report</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordionItem = button.parentNode;
+                accordionItem.classList.toggle('active');
+            });
+        });
+
+        function openReportModal() {
+            document.getElementById('report-date').textContent = new Date().toLocaleString();
+            document.getElementById('report-image-id').textContent = '{{ image_url }}'.split('/').pop();
+            document.getElementById('report-doctor-name').textContent = document.getElementById('doctor-name').value;
+            document.getElementById('report-cat-age').textContent = document.getElementById('cat-age').value;
+
+            const checked = Array.from(document.querySelectorAll('input[name="conditions"]:checked')).map(cb => cb.nextElementSibling.textContent);
+            document.getElementById('report-vet-diagnosis').textContent = checked.length ? checked.join(', ') : 'None specified';
+
+            const notes = document.getElementById('doctor-notes').value;
+            document.getElementById('report-vet-notes').innerHTML = notes ? '<p><strong>Notes:</strong></p><p>' + notes + '</p>' : '<p>No additional notes provided.</p>';
+            document.getElementById('report-modal').style.display = 'flex';
+        }
+        function closeReportModal() {
+            document.getElementById('report-modal').style.display = 'none';
+        }
+        function printReport() {
+            const reportContent = document.querySelector('.report-content').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`<!DOCTYPE html><html><head><title>Cat Skin Condition Report</title><style>body { font-family: Arial, sans-serif; padding: 20px; } .report-header { text-align: center; margin-bottom: 30px; } .report-section { margin-bottom: 20px; } .report-section h3 { color: #3d8c30; margin-bottom: 10px; } @media print { .report-actions { display: none; } }</style></head><body>${reportContent}</body></html>`);
+            printWindow.document.close();
+            setTimeout(() => { printWindow.print(); }, 500);
+        }
+    </script>
+</body>
+</html>

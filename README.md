@@ -5,11 +5,9 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-blue.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-PetDerma is an advanced AI-powered web application designed to diagnose skin diseases in pets using computer vision and deep learning technologies. The platform features specialized diagnostic modules for both cats and dogs, providing accurate disease detection with confidence scores and treatment recommendations.
-
 ## 🎯 Overview
 
-PetDerma combines state-of-the-art deep learning models with an intuitive web interface to help pet owners and veterinarians quickly identify common skin conditions in cats and dogs. The system uses ResNet-50 convolutional neural networks trained on extensive datasets of pet skin conditions.
+PetDerma is an advanced AI-powered web application designed to diagnose skin diseases in pets using computer vision and deep learning technologies. The platform features specialized diagnostic modules for both cats and dogs, providing accurate disease detection with confidence scores and treatment recommendations.
 
 ## ✨ Key Features
 
@@ -24,12 +22,6 @@ PetDerma combines state-of-the-art deep learning models with an intuitive web in
 - **Advanced Diagnostics**: Comprehensive skin condition analysis
 - **Treatment Guidance**: Detailed information about each condition
 - **User Feedback System**: Integrated feedback collection for model improvement
-
-### 🌐 **Main Platform Features**
-- **Unified Dashboard**: Single entry point for both cat and dog diagnostics
-- **Multi-Application Architecture**: Seamlessly integrates CatDerma and DogDerma
-- **Responsive Design**: Works on desktop and mobile devices
-- **Real-time Processing**: Fast image analysis and results delivery
 
 ## 🛠️ Technology Stack
 
@@ -135,7 +127,6 @@ This command will:
 - Start the main PetDerma application on `http://localhost:5000`
 - Automatically launch CatDerma on `http://localhost:5001`
 - Automatically launch DogDerma on `http://localhost:5002`
-- Open your default web browser to the main interface
 
 ## 📖 Usage Guide
 
@@ -179,13 +170,6 @@ This command will:
 4. **Hypersensitivity**: Allergic skin reactions
 5. **Demodicosis**: Demodex mite infestation
 6. **Ringworm**: Fungal infection affecting skin and hair
-
-## 🔒 Security & Privacy
-
-- **Local Processing**: All image analysis occurs locally
-- **No Data Storage**: Images are not permanently stored
-- **Privacy First**: No personal information is collected
-- **Secure Upload**: Files are processed and immediately removed
 
 ## 🤝 Contributing
 
